@@ -31,6 +31,7 @@ namespace RentalsManager
 
 		public static List<string> GetOutput(string query)
 		{
+			Console.WriteLine("Getting output from query: " + query);
 			List<string> output = new List<string>();
 
 			ConnectAndSetQuery(query);
