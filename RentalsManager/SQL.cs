@@ -10,7 +10,7 @@ namespace RentalsManager
 {
 	class SQL
 	{
-		public static SqlConnection connection = new SqlConnection(@"Data Source = SQLEXPRESS; Database = BoardgameRentalRecords; Integrated Security = True");
+		public static SqlConnection connection = new SqlConnection(@"Data Source = CLOONEY\SQLEXPRESS; Initial Catalog = BoardgameRentalRecords; Integrated Security = True");
 		public static SqlCommand command = new SqlCommand();
 		public static SqlDataReader reader;
 
@@ -29,14 +29,14 @@ namespace RentalsManager
 			catch (Exception e) { Console.WriteLine(e); }
 		}
 
-		public static List<string> GetOutput(string query)
+		public static List<string> GetOutput(string query) 
 		{
 			Console.WriteLine("Getting output from query: " + query);
 			List<string> output = new List<string>();
 
 			ConnectAndSetQuery(query);
 			try { reader = command.ExecuteReader(); }
-			catch (Exception e) { Console.WriteLine(e); }
+			catch (Exception e) { Console.WriteLine(e); return null; }
 
 			while (SQL.reader.Read()) output.Add(reader[0].ToString());
 			foreach (string s in output) Console.WriteLine(s);

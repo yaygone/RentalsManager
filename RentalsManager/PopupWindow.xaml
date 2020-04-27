@@ -1,18 +1,15 @@
-﻿<Window x:Class="RentalsManager.MainViewWindow"
+﻿<Window x:Class="RentalsManager.PopupWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RentalsManager"
         mc:Ignorable="d"
-		Background="DimGray"
-        Title="Rentals Manager" Height="450" Width="800">
-    <Grid Margin="20">
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition></ColumnDefinition>
-			<ColumnDefinition></ColumnDefinition>
-			<ColumnDefinition></ColumnDefinition>
-		</Grid.ColumnDefinitions>
-		<ListView Background="Gray"></ListView>
+        Title="PopupWindow" Height="150" Width="400">
+    <Grid Background="DimGray">
+		<StackPanel Margin="10">
+			<TextBlock x:Name="MainTextBlock" Height="80" Text=""/>
+			<Button x:Name="CloseButton" Content="Close" KeyUp="CloseButton_KeyUp"/>
+		</StackPanel>
     </Grid>
 </Window>

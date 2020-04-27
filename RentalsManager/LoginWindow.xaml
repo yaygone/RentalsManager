@@ -5,19 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RentalsManager"
         mc:Ignorable="d"
+		Background="DimGray"
         Title="Rentals Manager" Height="230" Width="300">
-	<Grid Background="DimGray">
-		<StackPanel Margin="10, 15, 10, 20">
-			<TextBlock TextAlignment="Center" Margin="0,0,0,10" FontSize="16" FontWeight="Bold">STAFF LOGIN</TextBlock>
-			<StackPanel Orientation="Horizontal" Margin="0,10,0,10">
-				<TextBlock TextAlignment="Left" Width="80">Username:</TextBlock>
-				<TextBox x:Name="UsernameTextBox" Width="180"></TextBox>
-			</StackPanel>
-			<StackPanel Orientation="Horizontal" Margin="0,10,0,10">
-				<TextBlock TextAlignment="Left" Width="80">Password:</TextBlock>
-				<PasswordBox x:Name="PasswordPwBox" PasswordChar ="*" Width="180"></PasswordBox>
-			</StackPanel>
-			<Button Margin="10,10,10,10" Height="40" Click="ButtonBase_OnClick">Login</Button>
+	<Grid>
+		<StackPanel Margin="20">
+			<TextBlock TextAlignment="Center" FontSize="16" FontWeight="Bold" Text="STAFF LOGIN"></TextBlock>
+			<Grid Height="80" Margin="0">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="1*"></ColumnDefinition>
+					<ColumnDefinition Width="2*"></ColumnDefinition>
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition></RowDefinition>
+					<RowDefinition></RowDefinition>
+				</Grid.RowDefinitions>
+				<TextBlock TextAlignment="Left" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Text="Username:" Height="14"/>
+				<TextBox x:Name="UsernameTextBox" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" KeyUp="UsernameTextBox_KeyUp" Height="18"/>
+				<TextBlock TextAlignment="Left" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Text="Password:" Height="14"/>
+				<PasswordBox x:Name="PasswordPwBox" PasswordChar ="*" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" KeyUp="GoToButtonClick" Height="18"/>
+			</Grid>
+			<Button Margin="10" Height="40" Click="ButtonBase_OnClick" KeyUp="GoToButtonClick">Login</Button>
 		</StackPanel>
-    </Grid>
+	</Grid>
 </Window>

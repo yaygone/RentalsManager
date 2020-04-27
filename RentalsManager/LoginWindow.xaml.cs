@@ -27,14 +27,21 @@ namespace RentalsManager
 		{
 			string username = UsernameTextBox.Text;
 			string password = PasswordPwBox.Password;
-			if (findManager(username, password) != -1) new MainViewWindow();
+			if (findManager(username, password) != -1)
+			{
+				Hide();
+				new MainViewWindow();
+			}
 		}
 
 		private int findManager(string username, string password)
 		{
 			Console.WriteLine("Finding manager record...");
-			List<string> managerList = SQL.GetOutput("SELECT * FROM Manager");
+			List<string> managerList = SQL.GetOutput("SELECT password FROM Manager WHERE username = '" + username + "'");
+			if (managerList == null) new PopupWindow("Incorrect username and/or password entered.");
+			
 			char[] textSplitParam = {'\t'};
+			foreach (string s in managerList) Console.WriteLine(s);
 			foreach (string managerText in managerList)
 			{
 				string[] managerArray = managerText.Split(textSplitParam, 2);
@@ -42,6 +49,12 @@ namespace RentalsManager
 			}
 			return -1;
 		}
+
+		private void UsernameTextBox_KeyUp(object sender, KeyEventArgs e)
+		{ if (e.Key == Key.Enter) PasswordPwBox.Focus(); }
+
+		private void GoToButtonClick(object sender, KeyEventArgs e)
+		{ if (e.Key == Key.Enter) ButtonBase_OnClick(sender, e); }
 	}
 
 }
