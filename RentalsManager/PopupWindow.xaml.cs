@@ -19,16 +19,20 @@ namespace RentalsManager
 	/// </summary>
 	public partial class PopupWindow : Window
 	{
-		public PopupWindow(string content)
+		Window parent;
+
+		public PopupWindow(string content, Window parentWindow)
 		{
 			InitializeComponent();
 			MainTextBlock.Text = content;
 			CloseButton.Focus();
+			parent = parentWindow;
 		}
 
 		private void CloseButton_KeyUp(object sender, KeyEventArgs e)
 		{
 			Close();
+			parent.Show();
 		}
 	}
 }

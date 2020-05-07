@@ -29,17 +29,22 @@ namespace RentalsManager
 			catch (Exception e) { Console.WriteLine(e); }
 		}
 
-		public static List<string> GetOutput(string query) 
+		public static List<string[]> GetOutput(string query, int[] indexes)
 		{
 			Console.WriteLine("Getting output from query: " + query);
-			List<string> output = new List<string>();
+			List<string[]> output = new List<string[]>();
 
 			ConnectAndSetQuery(query);
 			try { reader = command.ExecuteReader(); }
 			catch (Exception e) { Console.WriteLine(e); return null; }
 
-			while (SQL.reader.Read()) output.Add(reader[0].ToString());
-			foreach (string s in output) Console.WriteLine(s);
+			while (SQL.reader.Read())
+			{
+				string[] entry = new string[indexes.Length];
+				for (int i = 0; i < entry.Length; i++)
+					entry[i] = reader[i].ToString();
+				output.Add(entry);
+			}
 
 			return output;
 		}

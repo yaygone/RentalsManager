@@ -27,27 +27,18 @@ namespace RentalsManager
 		{
 			string username = UsernameTextBox.Text;
 			string password = PasswordPwBox.Password;
-			if (findManager(username, password) != -1)
-			{
-				Hide();
-				new MainViewWindow();
-			}
+			if (ManagerExists(username, password)) new MainViewWindow().Show();
+			else new PopupWindow("Incorrect username and/or password entered.", this).Show();
 		}
 
-		private int findManager(string username, string password)
+		private bool ManagerExists(string username, string password)
 		{
 			Console.WriteLine("Finding manager record...");
-			List<string> managerList = SQL.GetOutput("SELECT password FROM Manager WHERE username = '" + username + "'");
-			if (managerList == null) new PopupWindow("Incorrect username and/or password entered.");
+			int[] retrieveIndex = { 0 };
+			List<string[]> managerList = SQL.GetOutput("SELECT password FROM Manager WHERE username = '" + username + "'", retrieveIndex);
 			
-			char[] textSplitParam = {'\t'};
-			foreach (string s in managerList) Console.WriteLine(s);
-			foreach (string managerText in managerList)
-			{
-				string[] managerArray = managerText.Split(textSplitParam, 2);
-				if (managerArray[0].Equals(username) && managerArray[1].Equals(password)) return 0;
-			}
-			return -1;
+			if (managerList.Count != 0 && managerList[0][0].Equals(password)) return true;
+			return false;
 		}
 
 		private void UsernameTextBox_KeyUp(object sender, KeyEventArgs e)
