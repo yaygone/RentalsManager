@@ -1,0 +1,73 @@
+﻿<Window x:Class="RentalsManager.GameDetailWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RentalsManager"
+        mc:Ignorable="d"
+        Background="DimGray"
+        Title="Boardgame Details" Height="480" Width="500">
+    <Grid>
+        <StackPanel Margin="20">
+			<TextBlock x:Name="IdTextBlock" FontSize="16" FontWeight="Bold" Text="Register New"></TextBlock>
+	        <Grid Height="330">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="1*"></ColumnDefinition>
+					<ColumnDefinition Width="3*"></ColumnDefinition>
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition></RowDefinition>
+					<RowDefinition></RowDefinition>
+					<RowDefinition></RowDefinition>
+					<RowDefinition></RowDefinition>
+					<RowDefinition></RowDefinition>
+					<RowDefinition></RowDefinition>
+					<RowDefinition></RowDefinition>
+					<RowDefinition></RowDefinition>
+					<RowDefinition></RowDefinition>
+					<RowDefinition></RowDefinition>
+					<RowDefinition></RowDefinition>
+				</Grid.RowDefinitions>
+				<TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Text="Game Title"></TextBlock>
+				<TextBox x:Name="TextBoxName" Grid.Row="0" Grid.Column="1"></TextBox>
+		        <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Text="Price"></TextBlock>
+				<TextBox x:Name="TextBoxPrice" Grid.Row="1" Grid.Column="1"></TextBox>
+				<TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Text="Rating"></TextBlock>
+		        <TextBox x:Name="TextBoxRating" Grid.Row="2" Grid.Column="1"></TextBox>
+
+				<TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Text="Minimum players"></TextBlock>
+		        <TextBox x:Name="TextBoxMinPlayers" Grid.Row="3" Grid.Column="1"></TextBox>
+
+				<TextBlock Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Text="Maximum players"></TextBlock>
+		        <TextBox x:Name="TextBoxMaxPlayers" Grid.Row="4" Grid.Column="1"></TextBox>
+
+				<TextBlock Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" Text="Typical play time (mins)"></TextBlock>
+				<TextBox x:Name="TextBoxPlayTime" Grid.Row="5" Grid.Column="1"></TextBox>
+
+		        <TextBlock Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" Text="Year released"></TextBlock>
+		        <TextBox x:Name="TextBoxYear" Grid.Row="6" Grid.Column="1"></TextBox>
+
+				<TextBlock Grid.Row="7" Grid.Column="0" VerticalAlignment="Center" Text="Publisher(s)"></TextBlock>
+				<TextBox x:Name="TextBoxPub" Grid.Row="7" Grid.Column="1"></TextBox>
+
+		        <TextBlock Grid.Row="8" Grid.Column="0" VerticalAlignment="Center" Text="Designer(s)"></TextBlock>
+		        <TextBox x:Name="TextBoxDes" Grid.Row="8" Grid.Column="1"></TextBox>
+
+				<TextBlock Grid.Row="9" Grid.Column="0" VerticalAlignment="Center" Text="Genre(s)"></TextBlock>
+				<TextBox x:Name="TextBoxGenres" Grid.Row="9" Grid.Column="1" Height="60"></TextBox>
+
+				<TextBlock Grid.Row="10" Grid.Column="0" VerticalAlignment="Center" Text="Available"></TextBlock>
+				<CheckBox x:Name="CheckBoxAvail" Grid.Row="10" Grid.Column="1" VerticalAlignment="Center" IsChecked="True"></CheckBox>
+
+			</Grid>
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition></ColumnDefinition>
+					<ColumnDefinition></ColumnDefinition>
+				</Grid.ColumnDefinitions>
+				<Button x:Name="ButtonCancel" Grid.Column="0" Margin="10" Height="40" Content="Cancel" Background="LightGray" Click="ButtonCancel_Click"></Button>
+				<Button x:Name="ButtonSave" Grid.Column="1" Margin="10" Height="40" Content="Save" Background="Goldenrod" Click="ButtonSave_Click"></Button>
+			</Grid>
+        </StackPanel>
+    </Grid>
+</Window>

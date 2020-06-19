@@ -29,10 +29,10 @@ namespace RentalsManager
 			catch (Exception e) { Console.WriteLine(e); }
 		}
 
-		public static List<string[]> GetOutput(string query, int[] indexes)
+		public static List<Object[]> GetOutput(string query)
 		{
 			Console.WriteLine("Getting output from query: " + query);
-			List<string[]> output = new List<string[]>();
+			List<Object[]> output = new List<Object[]>();
 
 			ConnectAndSetQuery(query);
 			try { reader = command.ExecuteReader(); }
@@ -40,12 +40,12 @@ namespace RentalsManager
 
 			while (SQL.reader.Read())
 			{
-				string[] entry = new string[indexes.Length];
-				for (int i = 0; i < entry.Length; i++)
-					entry[i] = reader[i].ToString();
-				output.Add(entry);
+				Object[] row = new object[reader.FieldCount];
+				reader.GetValues(row);
+				foreach (Object o in row)
+					Console.WriteLine(o);
+				output.Add(row);
 			}
-
 			return output;
 		}
 	}

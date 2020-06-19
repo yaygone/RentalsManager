@@ -1,0 +1,61 @@
+﻿<Window x:Class="RentalsManager.ReturnAssessmentWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RentalsManager"
+        mc:Ignorable="d"
+		Background="DimGray"
+        Title="Return Assessment" Height="420" Width="500">
+    <Grid>
+		<StackPanel Margin="20">
+			<TextBlock x:Name="IdTextBlock" FontSize="16" FontWeight="Bold" Text=""></TextBlock>
+			<Grid Height="270">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="1*"></ColumnDefinition>
+					<ColumnDefinition Width="3*"></ColumnDefinition>
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition></RowDefinition>
+					<RowDefinition></RowDefinition>
+					<RowDefinition></RowDefinition>
+					<RowDefinition></RowDefinition>
+					<RowDefinition></RowDefinition>
+					<RowDefinition></RowDefinition>
+					<RowDefinition></RowDefinition>
+					<RowDefinition></RowDefinition>
+					<RowDefinition></RowDefinition>
+				</Grid.RowDefinitions>
+				
+				<TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Text="Boardgame ID"></TextBlock>
+				<TextBox x:Name="TextBoxGameName" Grid.Row="0" Grid.Column="1" IsEnabled="False"></TextBox>
+
+				<TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Text="Customer username"></TextBlock>
+				<TextBox x:Name="TextBoxCustomerUsername" Grid.Row="1" Grid.Column="1" IsEnabled="False"></TextBox>
+				
+				<TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Text="Authorised by"></TextBlock>
+				<TextBox x:Name="TextBoxManagerUsername" Grid.Row="2" Grid.Column="1" IsEnabled="False"></TextBox>
+
+				<TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Text="Rented on"></TextBlock>
+				<TextBox x:Name="TextBoxStartDate" Grid.Row="3" Grid.Column="1"></TextBox>
+
+				<TextBlock Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Text="Returned on"></TextBlock>
+				<DatePicker x:Name="DatePickerReturnDate" Grid.Row="4" Grid.Column="1" IsEnabled="False"></DatePicker>
+
+				<TextBlock Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" Text="Return condition"></TextBlock>
+				<TextBox x:Name="TextBoxReturnCondition" Grid.Row="5" Grid.Column="1" Grid.RowSpan="3"></TextBox>
+
+				<TextBlock Grid.Row="8" Grid.Column="0" VerticalAlignment="Center" Text="Drop cust standing by"></TextBlock>
+				<TextBox x:Name="TextBoxPenalty" Grid.Row="8" Grid.Column="1" Text="0"></TextBox>
+			</Grid>
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition></ColumnDefinition>
+					<ColumnDefinition></ColumnDefinition>
+				</Grid.ColumnDefinitions>
+				<Button x:Name="ButtonCancel" Grid.Column="0" Margin="10" Height="40" Content="Cancel" Background="LightGray" Click="ButtonCancel_Click"></Button>
+				<Button x:Name="ButtonSave" Grid.Column="1" Margin="10" Height="40" Content="Confirm return" Background="Goldenrod" Click="ButtonSave_Click"></Button>
+			</Grid>
+		</StackPanel>
+	</Grid>
+</Window>

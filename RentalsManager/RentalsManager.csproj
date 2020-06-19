@@ -55,13 +55,42 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="MainViewWindow.xaml.cs">
-      <DependentUpon>MainViewWindow.xaml</DependentUpon>
+    <Compile Include="CustomerDetailWindow.xaml.cs">
+      <DependentUpon>CustomerDetailWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Game.cs" />
+    <Compile Include="GameDetailWindow.xaml.cs">
+      <DependentUpon>GameDetailWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Genre.cs" />
+    <Compile Include="MainCustomerWindow.xaml.cs">
+      <DependentUpon>MainCustomerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainStaffWindow.xaml.cs">
+      <DependentUpon>MainStaffWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Login.cs" />
     <Compile Include="PopupWindow.xaml.cs">
       <DependentUpon>PopupWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Company.cs" />
+    <Compile Include="Global.cs" />
+    <Compile Include="RentalWindow.xaml.cs">
+      <DependentUpon>RentalWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ReturnAssessmentWindow.xaml.cs">
+      <DependentUpon>ReturnAssessmentWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Review.cs" />
     <Compile Include="SQL.cs" />
+    <Page Include="CustomerDetailWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GameDetailWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="LoginWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -74,11 +103,23 @@
       <DependentUpon>LoginWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="MainViewWindow.xaml">
+    <Page Include="MainCustomerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainStaffWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PopupWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RentalWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ReturnAssessmentWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

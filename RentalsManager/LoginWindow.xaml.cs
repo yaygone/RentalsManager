@@ -27,18 +27,22 @@ namespace RentalsManager
 		{
 			string username = UsernameTextBox.Text;
 			string password = PasswordPwBox.Password;
-			if (ManagerExists(username, password)) new MainViewWindow().Show();
+			if (UserExists(username, password, (bool)StaffLoginCheckBox.IsChecked))
+			{
+				if (StaffLoginCheckBox.IsEnabled) new MainStaffWindow().Show();
+				else new MainCustomerWindow().Show();
+			}
 			else new PopupWindow("Incorrect username and/or password entered.", this).Show();
 		}
 
-		private bool ManagerExists(string username, string password)
+		private bool UserExists(string username, string password, bool isManager)
 		{
-			Console.WriteLine("Finding manager record...");
+			Console.WriteLine("Finding user record...");
 			int[] retrieveIndex = { 0 };
-			List<string[]> managerList = SQL.GetOutput("SELECT password FROM Manager WHERE username = '" + username + "'", retrieveIndex);
+			string searchType = isManager ? "Manager" : "Customer";
+			List<object[]> userList = SQL.GetOutput("SELECT password FROM " + searchType + " WHERE username = '" + username + "'");
 			
-			if (managerList.Count != 0 && managerList[0][0].Equals(password)) return true;
-			return false;
+			return (userList.Count != 0 && userList[0][0].Equals(password));
 		}
 
 		private void UsernameTextBox_KeyUp(object sender, KeyEventArgs e)
@@ -47,5 +51,4 @@ namespace RentalsManager
 		private void GoToButtonClick(object sender, KeyEventArgs e)
 		{ if (e.Key == Key.Enter) ButtonBase_OnClick(sender, e); }
 	}
-
 }
