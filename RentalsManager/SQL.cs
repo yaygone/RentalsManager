@@ -36,7 +36,7 @@ namespace RentalsManager
 
 			ConnectAndSetQuery(query);
 			try { reader = command.ExecuteReader(); }
-			catch (Exception e) { Console.WriteLine(e); return null; }
+			catch (Exception e) { Console.WriteLine(e); return output; }
 
 			while (SQL.reader.Read())
 			{

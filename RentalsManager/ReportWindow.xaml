@@ -1,0 +1,30 @@
+﻿<Window x:Class="RentalsManager.ReportWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RentalsManager"
+		xmlns:formsChart="clr-namespace:System.Windows.Forms.DataVisualization.Charting;assembly=System.Windows.Forms.DataVisualization"
+        mc:Ignorable="d"
+		Background="DimGray"
+        Title="ReportWindow" Height="550" Width="500">
+    <Grid>
+		<StackPanel Margin="20" Orientation="Vertical">
+			<TextBlock x:Name="textBlockChartDesc" Height="20"></TextBlock>
+			<Grid x:Name="gridChart" Height="200">
+				<WindowsFormsHost x:Name="host">
+					<formsChart:Chart x:Name="winFormsChart">
+						<formsChart:Chart.Series>
+							<formsChart:Series x:Name="series" ChartType="Bar"></formsChart:Series>
+						</formsChart:Chart.Series>
+						<formsChart:Chart.ChartAreas>
+							<formsChart:ChartArea></formsChart:ChartArea>
+						</formsChart:Chart.ChartAreas>
+					</formsChart:Chart>
+				</WindowsFormsHost>
+			</Grid>
+			<TextBox x:Name="textBoxContent" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True" HorizontalAlignment="Stretch" Height="200" Text="Placeholder"></TextBox>
+			<Button x:Name="ButtonClose" Margin="10" Height="40" Content="Close" Background="LightGray" Click="ButtonClose_Click"></Button>
+		</StackPanel>
+    </Grid>
+</Window>

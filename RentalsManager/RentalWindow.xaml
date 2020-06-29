@@ -5,8 +5,53 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RentalsManager"
         mc:Ignorable="d"
-        Title="RentalWindow" Height="450" Width="800">
+		Background="DimGray"
+        Title="RentalWindow" Height="300" Width="500">
     <Grid>
-        
+		<StackPanel Margin="20">
+			<TextBlock x:Name="TextBlockTitle" FontSize="16" FontWeight="Bold" Text="Rent a game"></TextBlock>
+			<Grid Height="150">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="1*"></ColumnDefinition>
+					<ColumnDefinition Width="3*"></ColumnDefinition>
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition></RowDefinition>
+					<RowDefinition></RowDefinition>
+					<RowDefinition></RowDefinition>
+					<RowDefinition></RowDefinition>
+					<RowDefinition></RowDefinition>
+				</Grid.RowDefinitions>
+
+				<TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Text="Boardgame ID"></TextBlock>
+				<StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
+					<TextBox x:Name="TextBoxGameId" Grid.Row="0" Grid.Column="1" Width="275"></TextBox>
+					<Button x:Name="ButtonGameSearch" Width="65" HorizontalAlignment="Right" Content="Search" Click="ButtonGameSearch_Click"></Button>
+				</StackPanel>
+
+				<TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Text="Customer username"></TextBlock>
+				<StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+					<TextBox x:Name="TextBoxCustomerUsername" Grid.Row="1" Grid.Column="1" Width="275"></TextBox>
+					<Button x:Name="ButtonCustomerSearch" Width="65" HorizontalAlignment="Right" Content="Search" Click="ButtonCustomerSearch_Click"></Button>
+				</StackPanel>
+
+				<TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Text="Authorised by"></TextBlock>
+				<TextBox x:Name="TextBoxManagerUsername" Grid.Row="2" Grid.Column="1" IsEnabled="False"></TextBox>
+
+				<TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Text="Manager password"></TextBlock>
+				<PasswordBox x:Name="PasswordBoxManagerPassword" Grid.Row="3" Grid.Column="1" IsEnabled="False"></PasswordBox>
+
+				<TextBlock Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Text="Issued on"></TextBlock>
+				<DatePicker x:Name="DatePickerStartDate" Grid.Row="4" Grid.Column="1"></DatePicker>
+			</Grid>
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition></ColumnDefinition>
+					<ColumnDefinition></ColumnDefinition>
+				</Grid.ColumnDefinitions>
+				<Button x:Name="ButtonCancel" Grid.Column="0" Margin="10" Height="40" Content="Cancel" Background="LightGray" Click="ButtonCancel_Click"></Button>
+				<Button x:Name="ButtonSave" Grid.Column="1" Margin="10" Height="40" Content="Rent" Background="Goldenrod" Click="ButtonSave_Click"></Button>
+			</Grid>
+		</StackPanel>
     </Grid>
 </Window>

@@ -15,24 +15,13 @@ using System.Windows.Shapes;
 namespace RentalsManager
 {
 	/// <summary>
-	/// Interaction logic for PopupWindow.xaml
+	/// Interaction logic for ChangePasswordWindow.xaml
 	/// </summary>
-	public partial class PopupWindow : Window
+	public partial class ChangePasswordWindow : Window
 	{
-		Window parent;
-
-		public PopupWindow(string content, Window parentWindow)
+		public ChangePasswordWindow()
 		{
 			InitializeComponent();
-			MainTextBlock.Text = content;
-			CloseButton.Focus();
-			parent = parentWindow;
-		}
-
-		private void CloseButton_KeyUp(object sender, KeyEventArgs e)
-		{
-			Close();
-			parent.Show();
 		}
 	}
 }

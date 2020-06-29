@@ -20,5 +20,10 @@ namespace RentalsManager
 			string[] joinDateData = value.Split(new char[] { '-' });
 			return new DateTime(int.Parse(joinDateData[0]), int.Parse(joinDateData[1]), int.Parse(joinDateData[2]));
 		}
+
+		public static string DateToString(DateTime date)
+		{
+			return date.Year.ToString() + "-" + date.Month + "-" + date.Day;
+		}
 	}
 }

@@ -9,7 +9,7 @@
         Title="Return Assessment" Height="420" Width="500">
     <Grid>
 		<StackPanel Margin="20">
-			<TextBlock x:Name="IdTextBlock" FontSize="16" FontWeight="Bold" Text=""></TextBlock>
+			<TextBlock x:Name="IdTextBlock" FontSize="16" FontWeight="Bold" Text="Processing return for rental #"></TextBlock>
 			<Grid Height="270">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="1*"></ColumnDefinition>
@@ -37,15 +37,15 @@
 				<TextBox x:Name="TextBoxManagerUsername" Grid.Row="2" Grid.Column="1" IsEnabled="False"></TextBox>
 
 				<TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Text="Rented on"></TextBlock>
-				<TextBox x:Name="TextBoxStartDate" Grid.Row="3" Grid.Column="1"></TextBox>
+				<TextBox x:Name="TextBoxStartDate" Grid.Row="3" Grid.Column="1" IsEnabled="False"></TextBox>
 
 				<TextBlock Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Text="Returned on"></TextBlock>
-				<DatePicker x:Name="DatePickerReturnDate" Grid.Row="4" Grid.Column="1" IsEnabled="False"></DatePicker>
+				<DatePicker x:Name="DatePickerReturnDate" Grid.Row="4" Grid.Column="1"></DatePicker>
 
 				<TextBlock Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" Text="Return condition"></TextBlock>
 				<TextBox x:Name="TextBoxReturnCondition" Grid.Row="5" Grid.Column="1" Grid.RowSpan="3"></TextBox>
 
-				<TextBlock Grid.Row="8" Grid.Column="0" VerticalAlignment="Center" Text="Drop cust standing by"></TextBlock>
+				<TextBlock Grid.Row="8" Grid.Column="0" VerticalAlignment="Center" Text="Customer penalty"></TextBlock>
 				<TextBox x:Name="TextBoxPenalty" Grid.Row="8" Grid.Column="1" Text="0"></TextBox>
 			</Grid>
 			<Grid>

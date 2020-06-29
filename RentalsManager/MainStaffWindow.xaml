@@ -12,8 +12,12 @@
 			<RowDefinition Height="30"/>
 			<RowDefinition/>
 		</Grid.RowDefinitions>
-		<TextBlock VerticalAlignment="Center" Text="Logged in as manager" FontSize="20" Grid.ColumnSpan="2" Height="24" Margin="0,3"></TextBlock>
-		<Button x:Name="Logout" Content="Logout" HorizontalAlignment="Right" Width="100" Grid.Column="0" Background="LightGray" Click="ButtonLogout_Click"/>
+		<TextBlock x:Name="TextBlockTitle" VerticalAlignment="Center" Text="Logged in as manager" FontSize="20" Grid.ColumnSpan="2" Height="24" Margin="0,3"></TextBlock>
+		<StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+			<Button x:Name="buttonMonthlyStats" Content="Monthly stats" Width="100" Background="LightGray" Click="ButtonMonthlyStats_Click"></Button>
+			<Button Width="5" Visibility="Hidden"></Button>
+			<Button x:Name="ButtonLogout" Content="Logout" HorizontalAlignment="Right" Width="100" Grid.Column="0" Background="LightGray" Click="ButtonLogout_Click"/>
+		</StackPanel>
 		<Grid Grid.Row="1">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="100"/>
@@ -28,32 +32,32 @@
 				<Button x:Name="buttonCustomers" Content="Customers" Height="30" Background="LightGray" Click="ButtonCustomer_Click"/>
 				<Button x:Name="buttonGames" Content="Games" Height="30" Background="LightGray" Click="ButtonGamesTitle_Click"/>
 				<Button x:Name="buttonReviews" Content="Reviews" Height="30" Background="LightGray" Click="ButtonReview_Click"/>
-				<Button x:Name="buttonManagers" Content="Managers" Height="30" Background="LightGray" Click="ButtonManager_Click"/>
+				<Button x:Name="buttonManagers" Content="Manage" Height="30" Background="LightGray" Click="ButtonManager_Click"/>
 			</StackPanel>
 
 			<ListView x:Name="listViewContent" Grid.Column="1" Grid.Row="0" ScrollViewer.CanContentScroll="True" Background="DarkGray" IsTextSearchEnabled="True" SelectionMode="Single">
-				<!--<ListView.View>
-					<GridView x:Name ="gridViewContent">
+				<ListView.View>
+					<GridView>
 						<GridViewColumn Header="Username" Width="80" DisplayMemberBinding="{Binding uname}"/>
 						<GridViewColumn Header="First name" Width="120" DisplayMemberBinding="{Binding fname}"/>
 						<GridViewColumn Header="Last name" Width="120" DisplayMemberBinding="{Binding lname}"/>
 						<GridViewColumn Header="Phone" Width="120" DisplayMemberBinding="{Binding phone}"/>
 						<GridViewColumn Header="Email" Width="120" DisplayMemberBinding="{Binding email}"/>
-						<GridViewColumn Header="Standing" Width="60" DisplayMemberBinding="{Binding standing}"/>
+						<GridViewColumn Header="Standing" Width="120" DisplayMemberBinding="{Binding goodness}"/>
 					</GridView>
-				</ListView.View>-->
+				</ListView.View>
 			</ListView>
-			
 			<Grid Grid.Column="1" Grid.Row ="1">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition/>
 					<ColumnDefinition Width="Auto"/>
 				</Grid.ColumnDefinitions>
-				<TextBox x:Name="searchBox" Grid.Column="0" Margin="5" HorizontalAlignment="Stretch" Text="Type to search" TextChanged="SearchBox_TextChanged"></TextBox>
+				<TextBox x:Name="searchBox" Grid.Column="0" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Text="" TextChanged="SearchBox_TextChanged"></TextBox>
 				<StackPanel Grid.Column="1" Orientation="Horizontal">
+					<Button x:Name="buttonReports" Content="Reports" Width="100" Background="LightGray" Click="ButtonReports_Click"></Button>
 					<Button x:Name="ButtonEdit" Content="Details/Edit" Width="100" Background="LightGray" Click="ButtonEdit_Click"/>
 					<Button x:Name="ButtonAdd" Content="Register new" Width="100" Background="LightGray" Click="ButtonAdd_Click"/>
-					<Button x:Name="ButtonMainAction" Content="Rent/Return" Width="100" Click="ButtonMainAction_Click"/>
+					<Button x:Name="ButtonMainAction" Content="..." Width="100" Click="ButtonMainAction_Click"/>
 				</StackPanel>
 			</Grid>
 		</Grid>

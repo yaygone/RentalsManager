@@ -21,17 +21,19 @@ namespace RentalsManager
 	public partial class GameDetailWindow : Window
 	{
 		Game game;
+		bool readOnly;
 		List<Designer> designers = new List<Designer>();
 		List<Publisher> publishers = new List<Publisher>();
 		List<Genre> genres = new List<Genre>();
-		public GameDetailWindow(Game game)
+		public GameDetailWindow(Game game, bool readOnly)
 		{
-			this.game = game;
-			if (game != null) PopulateFields();
 			InitializeComponent();
+			this.game = game;
+			this.readOnly = readOnly;
+			if (game != null) PopulateFields(readOnly);
 		}
 
-		private void PopulateFields()
+		private void PopulateFields(bool readOnly)
 		{
 			IdTextBlock.Text = game.id.ToString();
 			TextBoxName.Text = game.name;
@@ -42,6 +44,19 @@ namespace RentalsManager
 			TextBoxPlayTime.Text = game.playTimeMins.ToString();
 			TextBoxYear.Text = game.releaseYear;
 			CheckBoxAvail.IsChecked = game.avail;
+
+			if (readOnly)
+			{
+				TextBoxName.IsEnabled = false;
+				TextBoxPrice.IsEnabled = false;
+				TextBoxRating.IsEnabled = false;
+				TextBoxMinPlayers.IsEnabled = false;
+				TextBoxMaxPlayers.IsEnabled = false;
+				TextBoxPlayTime.IsEnabled = false;
+				TextBoxYear.IsEnabled = false;
+				CheckBoxAvail.IsEnabled = false;
+				ButtonSave.IsEnabled = false;
+			}
 
 			publishers = game.GetPublishers();
 			foreach (Publisher publisher in publishers) TextBoxPub.Text += publisher + ";";
@@ -70,7 +85,6 @@ namespace RentalsManager
 
 				game.name = TextBoxName.Text;
 				game.price = decimal.Parse(TextBoxPrice.Text);
-				game.rating = double.Parse(TextBoxRating.Text);
 				game.minPlayers = int.Parse(TextBoxMinPlayers.Text);
 				game.maxPlayers = int.Parse(TextBoxMaxPlayers.Text);
 				game.playTimeMins = int.Parse(TextBoxPlayTime.Text);
@@ -164,7 +178,6 @@ namespace RentalsManager
 				foreach (var s in removedGenres)
 					SQL.ExecuteQuery("DELETE FROM GameGenreValue WHERE boardgameID = " + game.id +
 					                 " AND genreName = '" + s + "'");
-
 				Close();
 			}
 			catch (FormatException exception)
@@ -176,6 +189,11 @@ namespace RentalsManager
 			{
 				Console.WriteLine(exception.StackTrace);
 			}
+		}
+
+		private void ButtonReviews_Click(object sender, RoutedEventArgs e)
+		{
+			new ReviewListWindow(game, readOnly).ShowDialog();
 		}
 	}
 }

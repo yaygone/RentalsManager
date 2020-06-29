@@ -21,14 +21,16 @@ namespace RentalsManager
 	{
 		Customer customer;
 		List<Genre> genres;
-		public CustomerDetailWindow(Customer customer)
+		bool isCustomer;
+		public CustomerDetailWindow(Customer customer, bool isCustomer)
 		{
-			this.customer = customer;
-			if (customer != null) PopulateFields();
 			InitializeComponent();
+			this.customer = customer;
+			this.isCustomer = isCustomer;
+			if (customer != null) PopulateFields(isCustomer);
 		}
 
-		private void PopulateFields()
+		private void PopulateFields(bool isCustomer)
 		{
 			IdTextBlock.Text = "Edit customer";
 			TextBoxFname.Text = customer.fname;
@@ -38,7 +40,7 @@ namespace RentalsManager
 			TextBoxStreetAddress.Text = customer.streetAddress;
 			TextBoxCity.Text = customer.city;
 			TextBoxBankAcct.Text = customer.bankAccount;
-			TextBoxStanding.Text = customer.standing.ToString();
+			TextBoxStanding.Text = isCustomer ? "" : customer.goodness.ToString();
 			DatePickerJoinDate.SelectedDate = customer.joinDate;
 			DatePickerDob.SelectedDate = customer.dob;
 			TextBoxGender.Text = customer.gender;
@@ -49,6 +51,14 @@ namespace RentalsManager
 
 			genres = customer.GetGenres();
 			foreach (Genre genre in genres) TextBoxGenrePref.Text += genre + ";";
+
+			if (isCustomer)
+			{
+				TextBoxStanding.IsEnabled = false;
+				DatePickerJoinDate.IsEnabled = false;
+				TextBoxMaxRent.IsEnabled = false;
+				TextBoxUsername.IsEnabled = false;
+			}
 		}
 
 		private void ButtonCancel_Click(object sender, RoutedEventArgs e)
@@ -86,44 +96,47 @@ namespace RentalsManager
 				customer.streetAddress = TextBoxStreetAddress.Text;
 				customer.city = TextBoxCity.Text;
 				customer.bankAccount = TextBoxBankAcct.Text;
-				customer.standing = int.Parse(TextBoxStanding.Text);
+				customer.goodness = isCustomer ? customer.goodness : int.Parse(TextBoxStanding.Text);
 				customer.joinDate = (DateTime) DatePickerJoinDate.SelectedDate;
 				customer.dob = (DateTime) DatePickerDob.SelectedDate;
 				customer.gender = TextBoxGender.Text;
 				customer.maxRentNum = int.Parse(TextBoxMaxRent.Text);
 
-				List<string> updatedGenreRaw = new List<string>(TextBoxGenrePref.Text.Split(new char[] { ';' }));
-				List<Genre> updatedGenres = new List<Genre>();
-
 				if (newRecord) customer.InsertSql();
 				else customer.UpdateSql();
 
-				for (int i = 0; i < updatedGenreRaw.Count; i++)
+				if (!TextBoxGenrePref.Text.Equals(""))
 				{
-					string genreName = updatedGenreRaw[i];
-					foreach (Genre genre in Global.genres)
-						if (genreName.Equals(genre.name))
-						{
-							updatedGenres.Add(genre);
-							updatedGenreRaw.RemoveAt(i);
-						}
+					List<string> updatedGenreRaw = new List<string>(TextBoxGenrePref.Text.Split(new char[] { ';' }));
+					List<Genre> updatedGenres = new List<Genre>();
+					for (int i = 0; i < updatedGenreRaw.Count; i++)
+					{
+						string genreName = updatedGenreRaw[i];
+						foreach (Genre genre in Global.genres)
+							if (genreName.Equals(genre.name))
+							{
+								updatedGenres.Add(genre);
+								updatedGenreRaw.RemoveAt(i);
+							}
+					}
+					foreach (string s in updatedGenreRaw)
+					{
+						Genre newGenre = new Genre(s);
+						updatedGenres.Add(newGenre);
+						Global.genres.Add(newGenre);
+					}
+
+					var addedGenres = updatedGenres.ToArray().Except(genres.ToArray());
+					var removedGenres = genres.ToArray().Except(updatedGenres.ToArray());
+
+					foreach (var s in addedGenres)
+						SQL.ExecuteQuery("INSERT INTO GenrePref VALUES (" + customer.username + ", '" + s + "')");
+					foreach (var s in removedGenres)
+						SQL.ExecuteQuery("DELETE FROM GenrePref WHERE customerUsername = " + customer.username +
+										 " AND genreName = '" + s + "'");
 				}
-				foreach (string s in updatedGenreRaw)
-				{
-					Genre newGenre = new Genre(s);
-					updatedGenres.Add(newGenre);
-					Global.genres.Add(newGenre);
-				}
 
-				var addedGenres = updatedGenres.ToArray().Except(genres.ToArray());
-				var removedGenres = genres.ToArray().Except(updatedGenres.ToArray());
-
-				foreach (var s in addedGenres)
-					SQL.ExecuteQuery("INSERT INTO GenrePref VALUES (" + customer.username + ", '" + s + "')");
-				foreach (var s in removedGenres)
-					SQL.ExecuteQuery("DELETE FROM GenrePref WHERE customerUsername = " + customer.username +
-					                 " AND genreName = '" + s + "'");
-
+				Close();
 			}
 			catch (FormatException exception)
 			{
@@ -132,8 +145,7 @@ namespace RentalsManager
 			}
 			catch (Exception exception)
 			{
-				Console.WriteLine(exception);
-				throw;
+				Console.WriteLine(exception.StackTrace);
 			}
 
 

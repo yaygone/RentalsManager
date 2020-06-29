@@ -1,0 +1,30 @@
+﻿<Window x:Class="RentalsManager.ReviewListWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RentalsManager"
+        mc:Ignorable="d"
+		Background="DimGray"
+        Title="Reviews" Height="550" Width="500">
+    <Grid>
+		<StackPanel Margin="20">
+			<TextBlock x:Name="TextBlockTitle" FontSize="16" FontWeight="Bold" Text="All reviews for "></TextBlock>
+			<ListView x:Name="listViewContent" Height="400" ScrollViewer.CanContentScroll="True" Background="DarkGray" SelectionMode="Single">
+				<ListView.View>
+					<GridView>
+						<GridViewColumn Header="" Width="440" DisplayMemberBinding="{Binding fullText}"/>
+					</GridView>
+				</ListView.View>
+			</ListView>
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition></ColumnDefinition>
+					<ColumnDefinition></ColumnDefinition>
+				</Grid.ColumnDefinitions>
+				<Button x:Name="ButtonClose" Grid.Column="0" Margin="10" Height="40" Content="Close" Background="LightGray" Click="ButtonClose_Click"></Button>
+				<Button x:Name="ButtonEdit" Grid.Column="1" Margin="10" Height="40" Content="Edit" Background="Goldenrod" Click="ButtonEdit_Click"></Button>
+			</Grid>
+		</StackPanel>
+	</Grid>
+</Window>

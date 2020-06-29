@@ -33,7 +33,10 @@
 		        <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Text="Price"></TextBlock>
 				<TextBox x:Name="TextBoxPrice" Grid.Row="1" Grid.Column="1"></TextBox>
 				<TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Text="Rating"></TextBlock>
-		        <TextBox x:Name="TextBoxRating" Grid.Row="2" Grid.Column="1"></TextBox>
+				<StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
+			        <TextBox x:Name="TextBoxRating" Width="255"></TextBox>
+					<Button x:Name="ButtonReviews" Content="Read reviews" Width="85" Click="ButtonReviews_Click"></Button>
+				</StackPanel>
 
 				<TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Text="Minimum players"></TextBlock>
 		        <TextBox x:Name="TextBoxMinPlayers" Grid.Row="3" Grid.Column="1"></TextBox>

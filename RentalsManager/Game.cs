@@ -9,15 +9,24 @@ namespace RentalsManager
 {
 	public class Game
 	{
-		internal int id { get; set; }
-		internal string name { get; set; }
-		internal decimal price { get; set; }
-		internal double rating { get; set; }
-		internal int minPlayers { get; set; }
-		internal int maxPlayers { get; set; }
-		internal int playTimeMins { get; set; }
-		internal string releaseYear { get; set; }
-		internal bool avail { get; set; }
+		public int id { get; set; }
+		public string name { get; set; }
+		public decimal price { get; set; }
+		public double rating
+		{
+			get
+			{
+				object[] ratingSearchResult = SQL.GetOutput("SELECT AVG(rating) FROM Review WHERE boardgameID = " + this.id.ToString())[0];
+				return (ratingSearchResult[0] is DBNull) ? 0.0 : (int) ratingSearchResult[0];
+			}
+		}
+		public int minPlayers { get; set; }
+		public int maxPlayers { get; set; }
+		public int playTimeMins { get; set; }
+		public string releaseYear { get; set; }
+		public bool avail { get; set; }
+		public string inStock
+		{ get { return avail ? "Available" : "On loan"; } }
 
 		public Game(int id, string name)
 		{
@@ -30,13 +39,12 @@ namespace RentalsManager
 			int id = (int) values[0];
 			string name = (string) values[1];
 			Game game = new Game(id, name);
-			game.price = (decimal) values[2];
-			game.rating = (double) values[3];
-			game.minPlayers = (int) values[4];
-			game.maxPlayers = (int) values[5];
-			game.playTimeMins = (int) values[6];
-			game.releaseYear = (string) values[7];
-			game.avail = (bool) values[8];
+			game.price = values[2] is DBNull ? (decimal) 0.00 : (decimal) values[2];
+			game.minPlayers = values[4] is DBNull ? 0 : (int) values[4];
+			game.maxPlayers = values[5] is DBNull ? 0 : (int) values[5];
+			game.playTimeMins = values[6] is DBNull ? 0 : (int) values[6];
+			game.releaseYear = values[7] is DBNull ? null : (string) values[7];
+			game.avail = (int)values[8] == 1 ? true : false;
 			Global.games.Add(game);
 		}
 
@@ -78,12 +86,18 @@ namespace RentalsManager
 			SQL.ExecuteQuery("UPDATE Boardgame SET maxPlayers = " + maxPlayers + " WHERE id = " + id);
 			SQL.ExecuteQuery("UPDATE Boardgame SET playTimeMins = " + playTimeMins + " WHERE id = " + id);
 			SQL.ExecuteQuery("UPDATE Boardgame SET releaseYear = " + releaseYear + " WHERE id = " + id);
-			SQL.ExecuteQuery("UPDATE Boardgame SET avail = " + (avail ? "1" : "0") + "' WHERE id = " + id);
+			SQL.ExecuteQuery("UPDATE Boardgame SET avail = " + (avail ? "1" : "0") + " WHERE id = " + id);
+
 		}
 		public void InsertSql()
 		{
 			SQL.ExecuteQuery("INSERT INTO Boardgame VALUES (" + id + ", '" + name + "', " + price + ", " + rating + ", " 
 			                 + minPlayers + ", " + maxPlayers + ", " + playTimeMins + ", " + releaseYear + ", " + (avail ? "1" : "0") + ")");
+		}
+
+		public string ToShortString()
+		{
+			return name + ";" + id;
 		}
 
 		public override string ToString()
@@ -94,7 +108,7 @@ namespace RentalsManager
 			string designersString = "";
 			foreach (Publisher publisher in publishers) publishersString += publisher + ";";
 			foreach (Designer designer in designers) designersString += designer + ";";
-			return name + ";" + id + ";" + publishersString + designersString ;
+			return name + ";" + id + ";" + publishersString + designersString;
 		}
 	}
 }

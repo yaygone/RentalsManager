@@ -25,24 +25,24 @@ namespace RentalsManager
 
 		private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
 		{
+			//UsernameTextBox.Text = "mgr2";
+			//PasswordPwBox.Password = "1234567";
 			string username = UsernameTextBox.Text;
 			string password = PasswordPwBox.Password;
 			if (UserExists(username, password, (bool)StaffLoginCheckBox.IsChecked))
 			{
-				if (StaffLoginCheckBox.IsEnabled) new MainStaffWindow().Show();
-				else new MainCustomerWindow().Show();
+				if ((bool)StaffLoginCheckBox.IsChecked) new MainStaffWindow(username).ShowDialog();
+				else new MainCustomerWindow(username).ShowDialog();
 			}
-			else new PopupWindow("Incorrect username and/or password entered.", this).Show();
+			else MessageBox.Show("Incorrect username and/or password entered", "Error", MessageBoxButton.OK);
 		}
 
 		private bool UserExists(string username, string password, bool isManager)
 		{
 			Console.WriteLine("Finding user record...");
-			int[] retrieveIndex = { 0 };
 			string searchType = isManager ? "Manager" : "Customer";
-			List<object[]> userList = SQL.GetOutput("SELECT password FROM " + searchType + " WHERE username = '" + username + "'");
-			
-			return (userList.Count != 0 && userList[0][0].Equals(password));
+			List<object[]> userList = SQL.GetOutput("SELECT * FROM " + searchType + " WHERE username = '" + username + "' AND password = '" + password + "'");
+			return (userList.Count != 0);
 		}
 
 		private void UsernameTextBox_KeyUp(object sender, KeyEventArgs e)

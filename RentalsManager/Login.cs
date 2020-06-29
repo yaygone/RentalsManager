@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RentalsManager.Properties;
+using System.ComponentModel;
 
 namespace RentalsManager
 {
-	public class Login
+	public abstract class Login
 	{
-		internal string username { get; set; }
-		internal string password { get; set; }
+		public string username { get; set; }
+		public string password { get; set; }
 
 		public Login(string username, string password)
 		{
@@ -27,25 +28,23 @@ namespace RentalsManager
 		{ Global.managers.Add(new Manager((string) values[0], (string) values[1])); }
 
 		public override string ToString()
-		{
-			return username;
-		}
+		{ return username; }
 	}
 
 	public class Customer : Login
 	{
-		internal string fname { get; set; }
-		internal string lname { get; set; }
-		internal string phone { get; set; }
-		internal string email { get; set; }
-		internal string streetAddress { get; set; }
-		internal string city { get; set; }
-		internal string bankAccount { get; set; }
-		internal int standing { get; set; }
-		internal DateTime joinDate { get; set; }
-		internal DateTime dob { get; set; }
-		internal string gender { get; set; }
-		internal int maxRentNum { get; set; }
+		public string fname { get; set; }
+		public string lname { get; set; }
+		public string phone { get; set; }
+		public string email { get; set; }
+		public string streetAddress { get; set; }
+		public string city { get; set; }
+		public string bankAccount { get; set; }
+		public int goodness { get; set; }
+		public DateTime joinDate { get; set; }
+		public DateTime dob { get; set; }
+		public string gender { get; set; }
+		public int maxRentNum { get; set; }
 
 		public Customer(string username, string password, string fname, string lname, string phone, string bankAccount,
 			DateTime joinDate) : base(username, password)
@@ -55,7 +54,7 @@ namespace RentalsManager
 			this.phone = phone;
 			this.bankAccount = bankAccount;
 			this.joinDate = joinDate;
-			standing = -1;
+			goodness = -1;
 			maxRentNum = -1;
 		}
 
@@ -67,13 +66,13 @@ namespace RentalsManager
 			string lname = (string)values[2];
 			string phone = (string)values[4];
 			string bankAccount = (string)values[8];
-			DateTime joinDate = Global.StringToDate((string)values[10]);
+			DateTime joinDate = (DateTime) values[10];
 			Customer customer = new Customer(username, password, fname, lname, phone, bankAccount, joinDate);
 			customer.email = (string)values[5];
 			customer.streetAddress = (string)values[6];
 			customer.city = (string)values[7];
-			customer.standing = (int)values[9];
-			customer.dob = Global.StringToDate((string)values[11]);
+			customer.goodness = values[9] is DBNull ? -1 : (int)values[9];
+			customer.dob = (DateTime)values[11];
 			customer.gender = (string)values[12];
 			customer.maxRentNum = (int)values[13];
 			Global.customers.Add(customer);
@@ -83,9 +82,10 @@ namespace RentalsManager
 		{
 			List<object[]> genresRaw = SQL.GetOutput("SELECT genreName FROM GenrePref WHERE customerUsername = " + this.username);
 			List<Genre> thisCustomerGenres = new List<Genre>();
-			foreach (object[] values in genresRaw)
-				foreach (Genre genre in Global.genres)
-					if (((string)values[0]).Equals(genre.name)) thisCustomerGenres.Add(genre);
+			if (genresRaw != null)
+				foreach (object[] values in genresRaw)
+					foreach (Genre genre in Global.genres)
+						if (((string)values[0]).Equals(genre.name)) thisCustomerGenres.Add(genre);
 			return thisCustomerGenres;
 		}
 
@@ -99,9 +99,9 @@ namespace RentalsManager
 			SQL.ExecuteQuery("UPDATE Customer SET streetAddress = '" + streetAddress + "' WHERE username = '" + username + "'");
 			SQL.ExecuteQuery("UPDATE Customer SET city = '" + city + "' WHERE username = '" + username + "'");
 			SQL.ExecuteQuery("UPDATE Customer SET bankAcct = '" + bankAccount + "' WHERE username = '" + username + "'");
-			SQL.ExecuteQuery("UPDATE Customer SET goodness = " + standing + " WHERE username = '" + username + "'");
-			SQL.ExecuteQuery("UPDATE Customer SET joinDate = '" + joinDate.ToShortDateString() + "' WHERE username = '" + username + "'");
-			SQL.ExecuteQuery("UPDATE Customer SET dob = '" + dob.ToShortDateString() + "' WHERE username = '" + username + "'");
+			SQL.ExecuteQuery("UPDATE Customer SET goodness = " + goodness + " WHERE username = '" + username + "'");
+			SQL.ExecuteQuery("UPDATE Customer SET joinDate = '" + Global.DateToString(joinDate) + "' WHERE username = '" + username + "'");
+			SQL.ExecuteQuery("UPDATE Customer SET dob = '" + Global.DateToString(dob) + "' WHERE username = '" + username + "'");
 			SQL.ExecuteQuery("UPDATE Customer SET gender = '" + gender + "' WHERE username = '" + username + "'");
 			SQL.ExecuteQuery("UPDATE Customer SET maxRentNum = " + maxRentNum + " WHERE username = '" + username + "'");
 		}
@@ -109,9 +109,11 @@ namespace RentalsManager
 		public void InsertSql()
 		{
 			SQL.ExecuteQuery("INSERT INTO Customer VALUES ('" + username + "', '" + fname + "', '" + lname + "', '" + password + "', '" 
-			                 + phone + "', '" + email + "', '" + streetAddress + "', '" + city + "', '" + bankAccount + "', " + standing + ", '" 
-			                 + joinDate.ToShortDateString() + "', '" + dob.ToShortDateString() + "', '" + gender + "', " + maxRentNum + ")");
+			                 + phone + "', '" + email + "', '" + streetAddress + "', '" + city + "', '" + bankAccount + "', " + goodness + ", '" 
+			                 + Global.DateToString(joinDate) + "', '" + Global.DateToString(dob) + "', '" + gender + "', " + maxRentNum + ")");
 		}
+
+		public event PropertyChangedEventHandler PropertyChanged;
 
 		public override string ToString()
 		{ return fname + ";" + lname + ";" + username + ";" + phone + ";" + email; }

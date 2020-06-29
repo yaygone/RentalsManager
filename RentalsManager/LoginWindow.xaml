@@ -9,7 +9,7 @@
         Title="Rentals Manager" Height="270" Width="300">
 	<Grid>
 		<StackPanel Margin="20">
-			<TextBlock TextAlignment="Center" FontSize="16" FontWeight="Bold" Text="STAFF LOGIN"></TextBlock>
+			<TextBlock TextAlignment="Center" FontSize="16" FontWeight="Bold" Text="LOGIN"></TextBlock>
 			<Grid Height="120" Margin="0">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="1*"></ColumnDefinition>
